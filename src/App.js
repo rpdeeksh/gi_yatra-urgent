@@ -493,7 +493,7 @@ const App = () => {
           {/* Itinerary Results */}
           {!isGenerating && itinerary.length > 0 && (
             <>
-              <Grid container spacing={3} mt={4}>
+              <Grid container spacing={2} mt={4}>
                 {selectedOption === '1' && (
                   <Grid item xs={12}>
                     <Typography variant="h5" className="itinerary-title" gutterBottom>
@@ -519,7 +519,7 @@ const App = () => {
                       </Grid>
                     )}
                     
-                    <Grid item xs={12} sm={6} md={6} lg={6}>
+                    <Grid item xs={12} sm={6} md={4} lg={4}>
                       <Card className={`card itinerary-card ${item.isAd ? 'ad-card' : 'gi-card'}`}>
                         {/* GI Product Image */}
                         {item.image && (
@@ -680,8 +680,8 @@ const App = () => {
                 <Box
                   sx={{
                     background: 'rgba(255, 255, 255, 0.1)',
-                    borderRadius: '16px',
-                    padding: '32px 24px',
+                    borderRadius: '12px',
+                    padding: '24px 20px',
                     backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                     height: '100%',
@@ -691,14 +691,14 @@ const App = () => {
                   }}
                 >
                   <Typography 
-                    variant="h5" 
+                    variant="h6" 
                     sx={{ 
                       fontWeight: 'bold', 
-                      mb: 3, 
+                      mb: 2, 
                       color: '#ffffff',
                       textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
                       borderBottom: '2px solid #90ee90',
-                      paddingBottom: '8px',
+                      paddingBottom: '6px',
                       display: 'inline-block'
                     }}
                   >
@@ -769,8 +769,8 @@ const App = () => {
                 <Box
                   sx={{
                     background: 'rgba(255, 255, 255, 0.1)',
-                    borderRadius: '16px',
-                    padding: '32px 24px',
+                    borderRadius: '12px',
+                    padding: '24px 20px',
                     backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                     height: '100%',
@@ -780,14 +780,14 @@ const App = () => {
                   }}
                 >
                   <Typography 
-                    variant="h5" 
+                    variant="h6" 
                     sx={{ 
                       fontWeight: 'bold', 
-                      mb: 3, 
+                      mb: 2, 
                       color: '#ffffff',
                       textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
                       borderBottom: '2px solid #90ee90',
-                      paddingBottom: '8px',
+                      paddingBottom: '6px',
                       display: 'inline-block'
                     }}
                   >
@@ -802,9 +802,8 @@ const App = () => {
                           color: '#ffffff', 
                           textTransform: 'none',
                           fontSize: '16px',
-                          fontWeight: 500,
-                          padding: '10px 20px',
-                          borderRadius: '12px',
+                          fontWeight: 500,                        padding: '8px 16px',
+                        borderRadius: '10px',
                           background: 'rgba(255, 255, 255, 0.1)',
                           border: '1px solid rgba(255, 255, 255, 0.2)',
                           transition: 'all 0.3s ease',
@@ -825,7 +824,7 @@ const App = () => {
             </Grid>
 
             {/* Decorative Divider */}
-            <Box mt={6} mb={4}>
+            <Box mt={4} mb={3}>
               <Box
                 sx={{
                   height: '2px',
@@ -842,18 +841,18 @@ const App = () => {
               >
                 <Box
                   sx={{
-                    width: '40px',
-                    height: '40px',
+                    width: '32px',
+                    height: '32px',
                     background: 'linear-gradient(45deg, #90ee90, #20b2aa)',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    border: '3px solid #ffffff',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+                    border: '2px solid #ffffff',
+                    boxShadow: '0 3px 8px rgba(0,0,0,0.3)'
                   }}
                 >
-                  <Typography sx={{ color: '#ffffff', fontSize: '18px' }}>✨</Typography>
+                  <Typography sx={{ color: '#ffffff', fontSize: '14px' }}>✨</Typography>
                 </Box>
               </Box>
             </Box>
@@ -863,8 +862,8 @@ const App = () => {
               textAlign="center"
               sx={{
                 background: 'rgba(0, 0, 0, 0.3)',
-                borderRadius: '12px',
-                padding: '20px',
+                borderRadius: '10px',
+                padding: '16px',
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255, 255, 255, 0.1)'
               }}
