@@ -1,0 +1,33 @@
+{
+  "name": "GI Yatra - Discover India through GI Treasures",
+  "short_name": "GI Yatra",
+  "description": "Embark on a cultural journey through India's Geographical Indication treasures. Experience authentic crafts, taste traditional flavors, and connect with artisans.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a237e",
+  "theme_color": "#ff9900",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["travel", "culture", "lifestyle"],
+  "screenshots": [
+    {
+      "src": "/icons/logo.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}
