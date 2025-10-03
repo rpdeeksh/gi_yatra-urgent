@@ -8,6 +8,15 @@ const App = () => {
   const [itinerary, setItinerary] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
+  
+  // Dynamic GI Product States
+  const [sareeStock, setSareeStock] = useState(45);
+  const [brinjalsToday, setBrinjalsToday] = useState(0);
+  const [malligenProducts, setMalligenProducts] = useState({
+    flowers: 0,
+    oil: 0,
+    tea: 0
+  });
 
   // Background images for the hero section
   const heroImages = [
@@ -27,6 +36,38 @@ const App = () => {
 
     return () => clearInterval(interval);
   }, [heroImages.length]);
+
+  // Dynamic GI Product Data Updates
+  useEffect(() => {
+    // Initialize base stock and daily increments
+    const today = new Date();
+    const daysSinceStart = Math.floor((today - new Date('2024-01-01')) / (1000 * 60 * 60 * 24));
+    const currentSareeStock = 45 + (daysSinceStart * 3);
+    setSareeStock(currentSareeStock);
+
+    // Real-time counters for brinjal sales (simulated)
+    const brinjalsInterval = setInterval(() => {
+      setBrinjalsToday(prev => {
+        const increment = Math.floor(Math.random() * 5) + 2; // 2-6 kg increments
+        const newTotal = prev + increment;
+        return newTotal > 2000 ? 2000 : newTotal; // Cap at 2 tons
+      });
+    }, 3000); // Update every 3 seconds
+
+    // Malligen products counter
+    const malligenInterval = setInterval(() => {
+      setMalligenProducts(prev => ({
+        flowers: Math.min(prev.flowers + Math.floor(Math.random() * 3) + 1, 500),
+        oil: Math.min(prev.oil + Math.floor(Math.random() * 2), 50),
+        tea: Math.min(prev.tea + Math.floor(Math.random() * 2), 30)
+      }));
+    }, 4000); // Update every 4 seconds
+
+    return () => {
+      clearInterval(brinjalsInterval);
+      clearInterval(malligenInterval);
+    };
+  }, []);
 
   const handleDistrictChange = (e) => {
     setSelectedDistrict(e.target.value);
@@ -359,12 +400,161 @@ const App = () => {
         </div>
       </section>
 
-      {/* Featured GI Products Preview */}
+      {/* Enhanced Featured GI Products with Dynamic Data */}
       <section className="featured-products">
         <Container maxWidth="lg">
           <Typography variant="h4" className="section-title">
             Featured GI Treasures
           </Typography>
+          
+          {/* Dynamic GI Product Showcase */}
+          <Box className="dynamic-gi-showcase" mb={4}>
+            <Grid container spacing={3}>
+              {/* Udupi Saree Association - Dynamic Stock */}
+              <Grid item xs={12} md={4}>
+                <Card className="dynamic-product-card saree-card">
+                  <div className="product-header">
+                    <img src="/images/GI_Gallery/udupi-saree.jpg" alt="Udupi Saree" />
+                    <div className="live-indicator">
+                      <span className="pulse-dot"></span>
+                      LIVE FROM GI_JEEVIKA
+                    </div>
+                  </div>
+                  <CardContent>
+                    <Typography variant="h6" className="product-title">
+                      Udupi Saree Association
+                    </Typography>
+                    <Typography variant="body2" className="product-subtitle">
+                      Traditional Handwoven Excellence
+                    </Typography>
+                    
+                    <Box className="stock-display" mt={2}>
+                      <Typography variant="h4" className="stock-number">
+                        {sareeStock}
+                      </Typography>
+                      <Typography variant="body2" className="stock-label">
+                        Total Sarees Available
+                      </Typography>
+                      <Typography variant="body2" className="increment-info">
+                        +3 daily from artisans
+                      </Typography>
+                    </Box>
+                    
+                    <Box className="exclusive-section" mt={2}>
+                      <Typography variant="subtitle2" className="exclusive-title">
+                        🌟 GI Yatra Exclusive
+                      </Typography>
+                      <Typography variant="h5" className="exclusive-count">
+                        {Math.floor(sareeStock / 3)}
+                      </Typography>
+                      <Typography variant="body2" className="exclusive-desc">
+                        Premium Handpicked Sarees
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+
+              {/* Mattu Gulla - Real-time Sales */}
+              <Grid item xs={12} md={4}>
+                <Card className="dynamic-product-card brinjal-card">
+                  <div className="product-header">
+                    <img src="/images/GI_Gallery/mattu-gulla.jpg" alt="Mattu Gulla" />
+                    <div className="sales-indicator">
+                      <span className="growing-bar"></span>
+                      DAILY SALES
+                    </div>
+                  </div>
+                  <CardContent>
+                    <Typography variant="h6" className="product-title">
+                      Mattu Gulla (Brinjal)
+                    </Typography>
+                    <Typography variant="body2" className="product-subtitle">
+                      Premium GI Certified Vegetable
+                    </Typography>
+                    
+                    <Box className="sales-display" mt={2}>
+                      <Typography variant="h4" className="sales-number">
+                        {(brinjalsToday / 1000).toFixed(1)}
+                      </Typography>
+                      <Typography variant="body2" className="sales-label">
+                        Tons Sold Today
+                      </Typography>
+                      <div className="progress-bar">
+                        <div 
+                          className="progress-fill" 
+                          style={{ width: `${(brinjalsToday / 2000) * 100}%` }}
+                        ></div>
+                      </div>
+                    </Box>
+                    
+                    <Box className="secondary-product" mt={2}>
+                      <Typography variant="subtitle2" className="secondary-title">
+                        🥒 Secondary Product
+                      </Typography>
+                      <Typography variant="body1" className="secondary-name">
+                        Mattu Gulla Uppinakaayi
+                      </Typography>
+                      <Typography variant="body2" className="secondary-desc">
+                        Traditional Pickle Delicacy
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+
+              {/* Udupi Mallige - Product Diversification */}
+              <Grid item xs={12} md={4}>
+                <Card className="dynamic-product-card mallige-card">
+                  <div className="product-header">
+                    <img src="/images/GI_Gallery/udupi-mallige.jpg" alt="Udupi Mallige" />
+                    <div className="diversification-indicator">
+                      <span className="expanding-circle"></span>
+                      DIVERSIFIED
+                    </div>
+                  </div>
+                  <CardContent>
+                    <Typography variant="h6" className="product-title">
+                      Shankarapura Mallige
+                    </Typography>
+                    <Typography variant="body2" className="product-subtitle">
+                      Sacred Jasmine Flowers
+                    </Typography>
+                    
+                    <Box className="primary-product" mt={2}>
+                      <Typography variant="subtitle2" className="primary-title">
+                        🌸 Primary Product
+                      </Typography>
+                      <Typography variant="h5" className="primary-count">
+                        {malligenProducts.flowers}
+                      </Typography>
+                      <Typography variant="body2" className="primary-label">
+                        Fresh Flowers (kg)
+                      </Typography>
+                    </Box>
+                    
+                    <Box className="secondary-products" mt={2}>
+                      <Typography variant="subtitle2" className="diversification-title">
+                        ➡️ Value-Added Products
+                      </Typography>
+                      <div className="secondary-grid">
+                        <div className="secondary-item">
+                          <Typography variant="h6">{malligenProducts.oil}</Typography>
+                          <Typography variant="caption">Jasmine Oil (L)</Typography>
+                        </div>
+                        <div className="secondary-item">
+                          <Typography variant="h6">{malligenProducts.tea}</Typography>
+                          <Typography variant="caption">Jasmine Tea (kg)</Typography>
+                        </div>
+                      </div>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </Box>
+
+          {/* Original Static Product Gallery */}
           <div className="product-gallery">
             <div className="product-card">
               <img src="/images/GI_Gallery/mysore-silk.jpg" alt="Mysore Silk" />
