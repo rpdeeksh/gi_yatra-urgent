@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Container,
@@ -30,18 +30,12 @@ import {
   Tooltip,
   Stepper,
   Step,
-  StepLabel,
-  StepContent
+  StepLabel
 } from '@mui/material';
 import {
-  Add as AddIcon,
   Visibility as VisibilityIcon,
   Gavel as GavelIcon,
   Warning as WarningIcon,
-  CloudUpload as CloudUploadIcon,
-  CheckCircle as CheckCircleIcon,
-  HourglassEmpty as HourglassEmptyIcon,
-  Cancel as CancelIcon,
   FileDownload as FileDownloadIcon,
   Business as BusinessIcon,
   Security as SecurityIcon
@@ -70,11 +64,7 @@ const ViolationReporting = () => {
 
   const { user } = useAuth();
 
-  useEffect(() => {
-    loadViolations();
-  }, []);
-
-  const loadViolations = async () => {
+  const loadViolations = useCallback(async () => {
     try {
       setLoading(true);
       let result;
@@ -93,7 +83,11 @@ const ViolationReporting = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.role, user?.username]);
+
+  useEffect(() => {
+    loadViolations();
+  }, [loadViolations]);
 
   const handleOpenNewViolation = () => {
     setNewViolation({

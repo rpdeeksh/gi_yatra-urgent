@@ -22,18 +22,14 @@ import {
   Divider
 } from '@mui/material';
 import {
-  Dashboard as DashboardIcon,
   Assignment as AssignmentIcon,
   Report as ReportIcon,
   People as PeopleIcon,
   Gavel as GavelIcon,
-  TrendingUp as TrendingUpIcon,
   Warning as WarningIcon,
   CheckCircle as CheckCircleIcon,
-  HourglassEmpty as HourglassEmptyIcon,
   AccountCircle as AccountCircleIcon,
   ExitToApp as ExitToAppIcon,
-  Business as BusinessIcon,
   Description as DescriptionIcon
 } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext';

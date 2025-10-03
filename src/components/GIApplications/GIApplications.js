@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Container,
@@ -27,13 +27,11 @@ import {
   Alert,
   LinearProgress,
   IconButton,
-  Tooltip,
-  Fab
+  Tooltip
 } from '@mui/material';
 import {
   Add as AddIcon,
   Visibility as VisibilityIcon,
-  Edit as EditIcon,
   CloudUpload as CloudUploadIcon,
   Assignment as AssignmentIcon,
   CheckCircle as CheckCircleIcon,
@@ -63,11 +61,7 @@ const GIApplications = () => {
 
   const { user } = useAuth();
 
-  useEffect(() => {
-    loadApplications();
-  }, []);
-
-  const loadApplications = async () => {
+  const loadApplications = useCallback(async () => {
     try {
       setLoading(true);
       let result;
@@ -86,7 +80,11 @@ const GIApplications = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.role, user?.username]);
+
+  useEffect(() => {
+    loadApplications();
+  }, [loadApplications]);
 
   const handleOpenNewApplication = () => {
     setNewApplication({

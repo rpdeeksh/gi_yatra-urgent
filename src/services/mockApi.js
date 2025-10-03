@@ -461,7 +461,7 @@ export const fileService = {
 };
 
 // Export all services
-export default {
+const mockApiServices = {
   authService,
   giApplicationService,
   violationService,
@@ -469,3 +469,5 @@ export default {
   dashboardService,
   fileService
 };
+
+export default mockApiServices;
