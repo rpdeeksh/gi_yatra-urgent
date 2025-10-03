@@ -1,8 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Button, Card, CardContent, Typography, Select, MenuItem, InputLabel, FormControl, Box, Grid, Container, AppBar, Toolbar } from '@mui/material';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import LoginPage from './components/Auth/LoginPage';
+import Dashboard from './components/Dashboard/Dashboard';
+import GIApplications from './components/GIApplications/GIApplications';
+import ViolationReporting from './components/Violations/ViolationReporting';
 import './App.css';
 
-const App = () => {
+// Protected Route Component
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
+
+// Tourism App Component (Original GI Yatra)
+const TourismApp = () => {
   const [selectedDistrict, setSelectedDistrict] = useState('Udupi');
   const [selectedOption, setSelectedOption] = useState('');
   const [itinerary, setItinerary] = useState([]);
@@ -334,6 +347,18 @@ const App = () => {
             <Button color="inherit" className="nav-link">Artisans</Button>
             <Button color="inherit" className="nav-link">About</Button>
             <Button color="inherit" className="nav-link">Contact</Button>
+            <Button 
+              color="inherit" 
+              className="nav-link"
+              onClick={() => window.location.href = '/login'}
+              sx={{ 
+                background: 'rgba(255,255,255,0.1)', 
+                ml: 2,
+                '&:hover': { background: 'rgba(255,255,255,0.2)' }
+              }}
+            >
+              Admin Portal
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -1085,6 +1110,51 @@ const App = () => {
         </Container>
       </footer>
     </div>
+  );
+};
+
+// Main App Component with Routing
+const App = () => {
+  return (
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<TourismApp />} />
+          <Route path="/tourism" element={<TourismApp />} />
+          <Route path="/login" element={<LoginPage />} />
+          
+          {/* Protected Admin Routes */}
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/gi-applications" 
+            element={
+              <ProtectedRoute>
+                <GIApplications />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/violations" 
+            element={
+              <ProtectedRoute>
+                <ViolationReporting />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Redirect unknown routes */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 };
 
